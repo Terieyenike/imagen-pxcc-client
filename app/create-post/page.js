@@ -3,8 +3,6 @@
 import { useState } from "react";
 import Image from "next/image";
 
-// import { getRandomPrompt } from "@/utils";
-
 import { preview } from "@/public/assets";
 import { FormField, Loader } from "@/components";
 
