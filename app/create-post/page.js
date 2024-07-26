@@ -5,6 +5,8 @@ import Image from "next/image";
 import { preview } from "@/public/assets";
 import { FormField, Loader } from "@/components";
 import { useRouter } from "next/navigation";
+import { ToastContainer, toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 
 const create = () => {
   const router = useRouter();
@@ -37,12 +39,12 @@ const create = () => {
         await response.json();
         router.push("/");
       } catch (error) {
-        alert(err);
+        toast.error(err);
       } finally {
         setLoading(false);
       }
     } else {
-      alert("Please generate an image with proper details");
+      toast.error("Please generate an image with proper details");
     }
   };
 
@@ -86,12 +88,12 @@ const create = () => {
         const data = await response.json();
         setForm({ ...form, photo: data.photo });
       } catch (err) {
-        alert(err);
+        toast.error(err);
       } finally {
         setGeneratingImg(false);
       }
     } else {
-      alert("Please provide a prompt");
+      toast.error("Please provide a prompt");
     }
   };
 
@@ -171,6 +173,7 @@ const create = () => {
           </button>
         </div>
       </form>
+      <ToastContainer theme='dark' />
     </section>
   );
 };
