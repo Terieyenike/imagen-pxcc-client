@@ -18,8 +18,6 @@ export default function Home() {
   const [loading, setLoading] = useState(false);
   const [allPosts, setAllPosts] = useState(null);
 
-  console.log(allPosts);
-
   const [searchText, setSearchText] = useState("");
 
   const fetchPosts = async () => {

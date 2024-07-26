@@ -2,11 +2,13 @@
 
 import { useState } from "react";
 import Image from "next/image";
-
 import { preview } from "@/public/assets";
 import { FormField, Loader } from "@/components";
+import { useRouter } from "next/navigation";
 
 const create = () => {
+  const router = useRouter();
+
   const [form, setForm] = useState({
     name: "",
     prompt: "",
@@ -17,8 +19,31 @@ const create = () => {
   const [generatingImg, setGeneratingImg] = useState(false);
   const [loading, setLoading] = useState(false);
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
+
+    if (prompt && photo) {
+      setLoading(true);
+
+      try {
+        const response = await fetch("http://localhost:8080/api/v1/post", {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify({ ...form }),
+        });
+        console.log(response);
+        await response.json();
+        router.push("/");
+      } catch (error) {
+        alert(err);
+      } finally {
+        setLoading(false);
+      }
+    } else {
+      alert("Please generate an image with proper details");
+    }
   };
 
   const handleChange = (e) => {
@@ -59,7 +84,6 @@ const create = () => {
         );
 
         const data = await response.json();
-        console.log({ img: data });
         setForm({ ...form, photo: data.photo });
       } catch (err) {
         alert(err);
