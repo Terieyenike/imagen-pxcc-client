@@ -6,7 +6,7 @@ import { Loader, Card, FormField } from "@/components";
 
 const RenderCards = ({ data, title }) => {
   if (data?.length > 0) {
-    return data.map((post) => <Card key={post._id} {...post} />);
+    return data.map((post) => <Card key={post.xata_id} {...post} />);
   }
 
   return (
@@ -26,12 +26,15 @@ export default function Home() {
     setLoading(true);
 
     try {
-      const response = await fetch("http://localhost:8080/api/v1/post", {
-        method: "GET",
-        headers: {
-          "Content-Type": "application/json",
-        },
-      });
+      const response = await fetch(
+        "https://imagen-backend.onrender.com/api/v1/post",
+        {
+          method: "GET",
+          headers: {
+            "Content-Type": "application/json",
+          },
+        }
+      );
       if (response.ok) {
         const result = await response.json();
         setAllPosts(result.data.reverse());

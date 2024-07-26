@@ -29,11 +29,10 @@ const create = () => {
   };
 
   const handleSurpriseMe = async () => {
-    // const randomPrompt = await getRandomPrompt(prompt);
-    // setForm({ ...form, prompt: randomPrompt });
-
     try {
-      const response = await fetch("http://localhost:8080/random-prompt");
+      const response = await fetch(
+        "https://imagen-backend.onrender.com/random-prompt"
+      );
       if (!response.ok) {
         throw new Error("Network response was not ok");
       }
@@ -48,15 +47,18 @@ const create = () => {
     if (prompt) {
       try {
         setGeneratingImg(true);
-        const response = await fetch("http://localhost:8080/api/v1/dalle", {
-          method: "POST",
-          headers: {
-            "Content-Type": "application/json",
-          },
-          body: JSON.stringify({
-            prompt: prompt,
-          }),
-        });
+        const response = await fetch(
+          "https://imagen-backend.onrender.com/api/v1/dalle",
+          {
+            method: "POST",
+            headers: {
+              "Content-Type": "application/json",
+            },
+            body: JSON.stringify({
+              prompt: prompt,
+            }),
+          }
+        );
 
         const data = await response.json();
         console.log({ img: data });
