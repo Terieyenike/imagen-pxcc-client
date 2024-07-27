@@ -16,8 +16,7 @@ const RenderCards = ({ data, title }) => {
 
 export default function Home() {
   const [loading, setLoading] = useState(false);
-  const [allPosts, setAllPosts] = useState(null);
-
+  const [allPosts, setAllPosts] = useState([]);
   const [searchText, setSearchText] = useState("");
 
   const fetchPosts = async () => {
@@ -48,6 +47,14 @@ export default function Home() {
     fetchPosts();
   }, []);
 
+  const handleSearchChange = (e) => {
+    setSearchText(e.target.value.toLowerCase());
+  };
+
+  const filteredPosts = allPosts.filter((post) =>
+    post.prompt.toLowerCase().includes(searchText)
+  );
+
   return (
     <section className='max-w-7xl mx-auto'>
       <div>
@@ -60,7 +67,14 @@ export default function Home() {
         </p>
       </div>
       <div className='mt-16'>
-        <FormField />
+        <FormField
+          labelName='Search posts'
+          type='text'
+          name='text'
+          placeholder='Search something...'
+          value={searchText}
+          handleChange={handleSearchChange}
+        />
       </div>
       <div className='mt-10'>
         {loading ? (
@@ -71,16 +85,15 @@ export default function Home() {
           <>
             {searchText && (
               <h2 className='font-medium text-[#666e75] text-xl mb-3'>
-                Showing Resuls for{" "}
-                <span className='text-[#222328]'>{searchText}</span>:
+                Showing Results for:{" "}
+                <span className='text-[#222328]'>{searchText}</span>
               </h2>
             )}
             <div className='grid lg:grid-cols-4 sm:grid-cols-3 xs:grid-cols-2 grid-cols-1 gap-3'>
-              {searchText ? (
-                <RenderCards data={[]} title='No Search Results Found' />
-              ) : (
-                <RenderCards data={allPosts} title='No Posts Yet' />
-              )}
+              <RenderCards
+                data={searchText ? filteredPosts : allPosts}
+                title='No Search Results Found'
+              />
             </div>
           </>
         )}
