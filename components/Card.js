@@ -1,4 +1,3 @@
-import { download } from "@/public/assets";
 import { downloadImage } from "@/utils";
 
 const Card = ({ xata_id, name, prompt, photo }) => {
