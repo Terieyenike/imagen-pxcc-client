@@ -51,6 +51,16 @@ export default function RootLayout({ children }) {
           <main className='sm:p-8 px-4 py-8 w-full bg-[#f9fafe] min-h-[calc(100vh-73px)]'>
             {children}
           </main>
+
+          <footer className='w-full flex flex-col sm:flex-row justify-between items-center bg-white sm:px-8 px-4 py-4 border-t border-t-[#e6ebf4]'>
+            <Link href='/' className='text-gray-600 text-sm'>
+              PromptPic
+            </Link>
+
+            <p className='text-gray-600 text-sm'>
+              Built with Clerk, Xata, Prisma, OpenAI, Cloudinary
+            </p>
+          </footer>
         </body>
       </html>
     </ClerkProvider>
