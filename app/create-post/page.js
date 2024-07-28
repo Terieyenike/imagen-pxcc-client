@@ -28,18 +28,21 @@ const create = () => {
       setLoading(true);
 
       try {
-        const response = await fetch("http://localhost:8080/api/v1/post", {
-          method: "POST",
-          headers: {
-            "Content-Type": "application/json",
-          },
-          body: JSON.stringify({ ...form }),
-        });
+        const response = await fetch(
+          "https://imagen-backend.onrender.com/api/v1/post",
+          {
+            method: "POST",
+            headers: {
+              "Content-Type": "application/json",
+            },
+            body: JSON.stringify({ ...form }),
+          }
+        );
         console.log(response);
         await response.json();
         router.push("/");
       } catch (error) {
-        toast.error(err);
+        toast.error(error);
       } finally {
         setLoading(false);
       }
