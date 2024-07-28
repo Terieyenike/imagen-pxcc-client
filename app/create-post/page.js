@@ -38,7 +38,6 @@ const create = () => {
             body: JSON.stringify({ ...form }),
           }
         );
-        console.log(response);
         await response.json();
         router.push("/");
       } catch (error) {
